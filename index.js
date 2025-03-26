@@ -1,18 +1,20 @@
 const express = require("express");
+const testRoutes = require("./routes/testRoutes");
+const calculatorRoutes = require("./routes/calculatorRoutes");
+const userRoutes = require("./routes/userRoutes");
+// const productRoutes = require("./routes/productRoutes");
+
 const app = express();
+
 const port = 3000;
 
+// parse requests of content-type - application/json
+app.use(express.json());
+
 app.use("/", express.static("public"));
-
-app.get("/test", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.get("/products", (req, response) => {
-  response.send([
-    { id: 1, name: "vanilla scoop", price: 4.5, qtyRemaining: 10 },
-  ]);
-});
+app.use("/tests", testRoutes);
+app.use("/calculator", calculatorRoutes);
+app.use("/user", userRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening
