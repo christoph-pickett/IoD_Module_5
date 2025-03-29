@@ -1,4 +1,8 @@
 const addNumbers = (req, res) => {
+  if (!req.query?.num1 || !req.query?.num2) {
+    res.status(422);
+    res.send({ result: "not valid values" });
+  }
   const number1 = parseInt(req.query?.num1) || 0;
   const number2 = parseInt(req.query?.num2) || 0;
 

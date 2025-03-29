@@ -1,22 +1,10 @@
-const express = require("express");
-const testRoutes = require("./routes/testRoutes");
-const calculatorRoutes = require("./routes/calculatorRoutes");
-const userRoutes = require("./routes/userRoutes");
-// const productRoutes = require("./routes/productRoutes");
-
-const app = express();
-
+// index.js - updated version
+// import the app
+const app = require("./app");
 const port = 3000;
 
-// parse requests of content-type - application/json
-app.use(express.json());
-
-app.use("/", express.static("public"));
-app.use("/tests", testRoutes);
-app.use("/calculator", calculatorRoutes);
-app.use("/user", userRoutes);
-
+// start the app to listen on the right port
 app.listen(port, () => {
-  console.log(`Example app listening
-at http://localhost:${port}`);
+  console.log(`Example app listening at
+http://localhost:${port}`);
 });
