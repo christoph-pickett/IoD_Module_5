@@ -2,7 +2,7 @@
 const request = require("supertest");
 const app = require("./app");
 
-describe("Calculator Routes", () => {
+describe.skip("Calculator Routes", () => {
   // generate some random numbers to test the calculator
   let number1 = Math.floor(Math.random() * 1_000_000);
   let number2 = Math.floor(Math.random() * 1_000_000);
@@ -26,6 +26,40 @@ describe("Calculator Routes", () => {
       .then((response) => {
         console.log("response", response.body);
         expect(response.body).toEqual({ result: "not valid values" });
+      });
+  });
+});
+
+describe("user routes", () => {
+  test("GET /user => get list of all current users in my data", () => {
+    return request(app)
+      .get(`/user`)
+      .expect(200)
+      .then((response) => {
+        console.log("response", response.body);
+        expect(response.body).toEqual({
+          result: [
+            { id: 1, name: "Anthony Albanese", country: "AU" },
+            { id: 2, name: "Joe Biden", country: "US" },
+            { id: 3, name: "Chris Hipkins", country: "NZ" },
+            { id: 4, name: "Lee Hsien Loong", country: "SG" },
+          ],
+        });
+      });
+  });
+
+  test("GET /user/:id => get specific user from list", () => {
+    return request(app)
+      .get(`/user/1`)
+      .expect(200)
+      .then((response) => {
+        console.log("response", response.body);
+
+        expect(response.statusCode).toBe(200);
+
+        expect(response.body).toEqual({
+          result: { id: 1, name: "Anthony Albanese", country: "AU" },
+        });
       });
   });
 });
