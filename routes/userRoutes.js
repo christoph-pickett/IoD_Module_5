@@ -9,6 +9,10 @@ const users = [
   { id: 4, name: "Lee Hsien Loong", country: "SG" },
 ];
 
+router.get("/", (req, res) => {
+  res.json({ result: users });
+});
+
 // get information about this request from the headers
 router.get("/headers", (req, res) => {
   res.json(req.headers);
